@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration xmlns="http://logging.apache.org/log4j/2.0/config">
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{MM/dd/yyyy HH:mm:ss.SSS} [%-5level] %c:%t [%F:%L:%M][sid=%X{subscriber.id}][seid=%X{session.id}]> %msg%n"/>
+            <Filters>
+                <ThreadContextMapFilter onMatch="ACCEPT" onMismatch="DENY">
+                    <KeyValuePair key="subscriber.id" value="subscriber1"/>
+                    <KeyValuePair key="subscriber.id" value="session1"/>
+                </ThreadContextMapFilter>
+            </Filters>
+        </Console>
+        <RollingFile name="Component1Appender" fileName="logfile_comp1.log" filePattern="logfile-%i.log">
+            <PatternLayout pattern="%d{MM/dd/yyyy HH:mm:ss.SSS} [%-5level] %c:%t [%F:%L:%M][sid=%X{subscriber.id}][seid=%X{session.id}]> %msg%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="1000 KB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="99"/>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="SampleLogger" level="all">
+            <AppenderRef ref="Component1Appender"/>
+        </Logger>
+
+        <Root level="all">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>
