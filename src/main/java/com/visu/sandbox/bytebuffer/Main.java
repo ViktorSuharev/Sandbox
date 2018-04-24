@@ -8,6 +8,13 @@ public class Main {
 
     public static void main(String[] args) {
 
+        byte[] bytes = { 'a', 'b', 'c', 'd', 'e', 'f' };
+        ByteBuffer bb = ByteBuffer.wrap(bytes);
+        testPrintByteBuffer(bb);
+
+
+
+
         ByteBuffer buffer = ByteBuffer.allocate(DEFAULT_CAPACITY);
         System.out.println("capacity " + buffer.capacity() + " position " + buffer.position());
 
@@ -53,6 +60,25 @@ public class Main {
     private static void printByteArray(byte[] array) {
         for (byte b : array) {
             System.out.print(b);
+        }
+        System.out.println();
+    }
+
+    private static void testPrintByteBuffer(ByteBuffer bb) {
+        System.out.println("- - - - P R I N T  B Y T E  B U F F E R - - - -");
+
+        System.out.println(bb);
+
+        System.out.println("- - - -");
+
+        printByteBufferAsString(bb);
+
+        System.out.println("- - - - - - - - - - - - - - - - - - - - - - - -");
+    }
+
+    private static void printByteBufferAsString(ByteBuffer bb) {
+        for (byte b : bb.array()) {
+            System.out.print((char) b);
         }
         System.out.println();
     }
